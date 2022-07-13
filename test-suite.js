@@ -53,7 +53,7 @@ class Test {
 
 /** This is just to make tests a bit more readable
  * @param {any} something the first thing to be compared
- * @return {{toBe: toBe}} expectation
+ * @return {{toBe: toBe, notToBe: toBe}} expectation
  *  */
 function expect(something) {
     return {
@@ -74,10 +74,15 @@ function expect(something) {
 
             /*** @returns {boolean} */
             function checkIfObjectsAreEqual(obj1, obj2) {
-                if (obj1.keys.length !== obj2.keys.length) {
+                let obj1Keys = Object.keys(obj1)
+                let obj2Keys = Object.keys(obj2)
+                if (obj1Keys.length !== obj2Keys.length) {
                     return false;
                 }
                 for (const key in obj1) {
+                    if (!key in obj2){
+                        return false
+                    }
                     if (obj1[key] !== obj2[key]) {
                         return false;
                     }
@@ -95,6 +100,9 @@ function expect(something) {
             function checkIfBothAreOfObjectType(something, somethingElse) {
                 return typeof something === 'object' && typeof somethingElse === 'object';
             }
+        },
+        notToBe: function (somethingElse){
+            return !this.toBe(somethingElse);
         }
     }
 }
