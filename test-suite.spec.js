@@ -1,5 +1,5 @@
 /* This is an example of how you can use the test-suite*/
-import {expect, Test, TestSuite} from "./test-suite.js";
+import {expect, runTest, Test, TestSuite} from "./test-suite.js";
 
 let testSuite = new TestSuite(
     new Test("valid test", someValidTest),
@@ -12,6 +12,7 @@ let testSuite = new TestSuite(
     new Test("compare different maps of objects", compareDifferentMapsOfObjects),
 );
 testSuite.runTests();
+runTest(new Test("valid test by itself", someValidTest))
 
 function someValidTest() {
     return expect(1 + 1).toBe(2);

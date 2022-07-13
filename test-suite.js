@@ -17,18 +17,7 @@ class TestSuite {
 
     runTests() {
         this.tests.forEach(test => runTest(test));
-
-        function runTest(test) {
-            let passed = test.func();
-            let testName = test.name;
-            if (passed) {
-                console.log(testName + " - PASS");
-            } else {
-                console.log(testName + " - FAIL");
-            }
-        }
     }
-
 }
 
 /** A Test needs to have a name and a testFunction */
@@ -51,7 +40,7 @@ class Test {
     }
 }
 
-/** This is just to make tests a bit more readable
+/** This is just to make tests a bit more readable.
  * @param {any} something the first thing to be compared
  * @return {{toBe: toBe, notToBe: toBe}} expectation
  *  */
@@ -141,4 +130,16 @@ function expect(something) {
     }
 }
 
-export {TestSuite, Test, expect}
+/**This function allows us to run just one test.
+ * @param {Test} test the test to be run*/
+function runTest(test) {
+    let passed = test.func();
+    let testName = test.name;
+    if (passed) {
+        console.log(testName + " - PASS ✅");
+    } else {
+        console.log(testName + " - FAIL ❌");
+    }
+}
+
+export {TestSuite, Test, expect, runTest}
