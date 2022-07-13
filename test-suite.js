@@ -63,6 +63,8 @@ function expect(something) {
         toBe: function (somethingElse) {
             return checkIfSame(something, somethingElse);
 
+            /**@param {any} something
+             *@param {any} somethingElse */
             function checkIfSame(something, somethingElse) {
                 let haveSameTypes = checkForSameType(something, somethingElse);
                 if (!haveSameTypes) {
@@ -80,7 +82,9 @@ function expect(something) {
                 }
                 return something === somethingElse;
 
-                /*** @returns {boolean} */
+                /**@param {Object} obj1
+                 *@param {Object} obj2
+                 * @returns {boolean} */
                 function checkIfObjectsAreEqual(obj1, obj2) {
                     let obj1Keys = Object.keys(obj1);
                     let obj2Keys = Object.keys(obj2);
