@@ -1,0 +1,12 @@
+{
+  "name": "node_learn",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test-suite.spec.js",
+  "scripts": {
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
