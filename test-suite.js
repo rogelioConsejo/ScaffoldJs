@@ -107,13 +107,13 @@ function expect(something) {
                     let areEqual = true;
                     something.forEach((element, index) => {
                         let otherElement = somethingElse.get(index);
-                        if (!index in somethingElse){
+                        if (!index in somethingElse) {
                             areEqual = false;
                         }
-                        if(element !== otherElement){
+                        if (element !== otherElement) {
                             areEqual = false;
                         }
-                        if (typeof element === 'object' && typeof otherElement  === 'object'){
+                        if (typeof element === 'object' && typeof otherElement === 'object') {
                             areEqual = checkIfSame(element, otherElement);
                         }
                     })
