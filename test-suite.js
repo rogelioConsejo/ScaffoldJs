@@ -60,9 +60,41 @@ function expect(something){
          * @param {any} somethingElse
          * @returns boolean*/
         toBe : function (somethingElse){
+            let haveSameTypes = checkForSameType(something, somethingElse);
+            if (!haveSameTypes){
+                return false;
+            }
+
+            let areObjects = checkIfBothAreOfObjectType(something, somethingElse);
+            if (areObjects){
+                return checkIfObjectsAreEqual(something, somethingElse);
+            }
             return something === somethingElse;
+
+            /*** @returns {boolean} */
+            function checkIfObjectsAreEqual(obj1, obj2){
+                if (obj1.keys.length !== obj2.keys.length){
+                    return false;
+                }
+                for (const key in obj1) {
+                    if (obj1[key] !== obj2[key]){
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            /*** @returns {boolean} */
+            function checkForSameType(obj1, obj2){return typeof obj1 === typeof obj2;}
+
+            /*** @returns {boolean} */
+            function checkIfBothAreOfObjectType(something, somethingElse) {
+                return typeof something === 'object' && typeof somethingElse === 'object';
+            }
         }
     }
 }
+
 
 export {TestSuite, Test, expect}
