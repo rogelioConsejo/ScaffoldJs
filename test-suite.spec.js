@@ -1,4 +1,4 @@
-/* This is a test and an example of how you can use the test-suite*/
+/* This is an example of how you can use the test-suite*/
 import {expect, Test, TestSuite} from "./test-suite.js";
 
 let testSuite = new TestSuite(
@@ -32,15 +32,16 @@ function compareDifferentArrays(){
 }
 
 function compareEqualObjects(){
-    let obj1 = {param1: true}
-    let obj2 = {param1: true}
+    let obj1 = {param1: true, param2: {someParam: 1}}
+    let obj2 = {param1: true, param2: {someParam: 1}}
     return expect(obj1).toBe(obj2)
 }
 
 function compareDifferentObjects(){
-    let obj1 = {param1: true}
+    let obj1 = {param1: true, param2: {someParam: 1}}
     let obj2 = {param1: false}
     let obj3 = {param1: true, param2: true}
+    let obj4 = {param1: true, param2: {someParam: 2}}
 
-    return expect(obj1).notToBe(obj2) && expect(obj1).notToBe(obj3)
+    return expect(obj1).notToBe(obj2) && expect(obj1).notToBe(obj3) && expect(obj1).notToBe(obj4)
 }
