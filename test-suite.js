@@ -61,7 +61,7 @@ function expect(something) {
          * @param {any} somethingElse
          * @returns boolean*/
         toBe: function (somethingElse) {
-            return checkIfSame(something,somethingElse);
+            return checkIfSame(something, somethingElse);
 
             function checkIfSame(something, somethingElse) {
                 let haveSameTypes = checkForSameType(something, somethingElse);
@@ -83,10 +83,10 @@ function expect(something) {
                         return false;
                     }
                     for (const key in obj1) {
-                        if (!key in obj2){
+                        if (!key in obj2) {
                             return false;
                         }
-                        if(!checkIfSame(obj1[key], obj2[key])){
+                        if (!checkIfSame(obj1[key], obj2[key])) {
                             return false;
                         }
                     }
@@ -104,8 +104,8 @@ function expect(something) {
                     return typeof something === 'object' && typeof somethingElse === 'object';
                 }
             }
-            },
-        notToBe: function (somethingElse){
+        },
+        notToBe: function (somethingElse) {
             return !this.toBe(somethingElse);
         }
     }

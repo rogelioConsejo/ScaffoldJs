@@ -11,33 +11,33 @@ let testSuite = new TestSuite(
 );
 testSuite.runTests();
 
-function someValidTest(){
-    return expect(1+1).toBe(2);
+function someValidTest() {
+    return expect(1 + 1).toBe(2);
 }
 
-function someFailingTest(){
-    return expect(1+1).toBe(3);
+function someFailingTest() {
+    return expect(1 + 1).toBe(3);
 }
 
-function compareEqualArrays(){
-    let arr1 = [1,2,3]
-    let arr2 = [1,2,3]
+function compareEqualArrays() {
+    let arr1 = [1, 2, 3]
+    let arr2 = [1, 2, 3]
     return expect(arr1).toBe(arr2);
 }
 
-function compareDifferentArrays(){
-    let arr1 = [1,2,4]
-    let arr2 = [1,2,3]
+function compareDifferentArrays() {
+    let arr1 = [1, 2, 4]
+    let arr2 = [1, 2, 3]
     return expect(arr1).notToBe(arr2);
 }
 
-function compareEqualObjects(){
+function compareEqualObjects() {
     let obj1 = {param1: true, param2: {someParam: 1}}
     let obj2 = {param1: true, param2: {someParam: 1}}
     return expect(obj1).toBe(obj2)
 }
 
-function compareDifferentObjects(){
+function compareDifferentObjects() {
     let obj1 = {param1: true, param2: {someParam: 1}}
     let obj2 = {param1: false}
     let obj3 = {param1: true, param2: true}
