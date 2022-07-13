@@ -61,51 +61,54 @@ function expect(something) {
          * @param {any} somethingElse
          * @returns boolean*/
         toBe: function (somethingElse) {
-            let haveSameTypes = checkForSameType(something, somethingElse);
-            if (!haveSameTypes) {
-                return false;
-            }
+            return checkIfSame(something,somethingElse);
 
-            let areObjects = checkIfBothAreOfObjectType(something, somethingElse);
-            if (areObjects) {
-                return checkIfObjectsAreEqual(something, somethingElse);
-            }
-            return something === somethingElse;
-
-            /*** @returns {boolean} */
-            function checkIfObjectsAreEqual(obj1, obj2) {
-                let obj1Keys = Object.keys(obj1)
-                let obj2Keys = Object.keys(obj2)
-                if (obj1Keys.length !== obj2Keys.length) {
+            function checkIfSame(something, somethingElse) {
+                let haveSameTypes = checkForSameType(something, somethingElse);
+                if (!haveSameTypes) {
                     return false;
                 }
-                for (const key in obj1) {
-                    if (!key in obj2){
-                        return false
-                    }
-                    if (obj1[key] !== obj2[key]) {
+
+                let areObjects = checkIfBothAreOfObjectType(something, somethingElse);
+                if (areObjects) {
+                    return checkIfObjectsAreEqual(something, somethingElse);
+                }
+                return something === somethingElse;
+
+                /*** @returns {boolean} */
+                function checkIfObjectsAreEqual(obj1, obj2) {
+                    let obj1Keys = Object.keys(obj1);
+                    let obj2Keys = Object.keys(obj2);
+                    if (obj1Keys.length !== obj2Keys.length) {
                         return false;
                     }
+                    for (const key in obj1) {
+                        if (!key in obj2){
+                            return false;
+                        }
+                        if(!checkIfSame(obj1[key], obj2[key])){
+                            return false;
+                        }
+                    }
+
+                    return true;
                 }
 
-                return true;
-            }
+                /*** @returns {boolean} */
+                function checkForSameType(obj1, obj2) {
+                    return typeof obj1 === typeof obj2;
+                }
 
-            /*** @returns {boolean} */
-            function checkForSameType(obj1, obj2) {
-                return typeof obj1 === typeof obj2;
+                /*** @returns {boolean} */
+                function checkIfBothAreOfObjectType(something, somethingElse) {
+                    return typeof something === 'object' && typeof somethingElse === 'object';
+                }
             }
-
-            /*** @returns {boolean} */
-            function checkIfBothAreOfObjectType(something, somethingElse) {
-                return typeof something === 'object' && typeof somethingElse === 'object';
-            }
-        },
+            },
         notToBe: function (somethingElse){
             return !this.toBe(somethingElse);
         }
     }
 }
-
 
 export {TestSuite, Test, expect}
