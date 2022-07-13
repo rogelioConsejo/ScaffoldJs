@@ -34,7 +34,8 @@ class TestSuite {
 /** A Test needs to have a name and a testFunction */
 class Test {
     name = "";
-    func = function () {};
+    func = function () {
+    };
 
     /**
      * @callback testFunction
@@ -54,30 +55,30 @@ class Test {
  * @param {any} something the first thing to be compared
  * @return {{toBe: toBe}} expectation
  *  */
-function expect(something){
+function expect(something) {
     return {
         /**@callback toBe
          * @param {any} somethingElse
          * @returns boolean*/
-        toBe : function (somethingElse){
+        toBe: function (somethingElse) {
             let haveSameTypes = checkForSameType(something, somethingElse);
-            if (!haveSameTypes){
+            if (!haveSameTypes) {
                 return false;
             }
 
             let areObjects = checkIfBothAreOfObjectType(something, somethingElse);
-            if (areObjects){
+            if (areObjects) {
                 return checkIfObjectsAreEqual(something, somethingElse);
             }
             return something === somethingElse;
 
             /*** @returns {boolean} */
-            function checkIfObjectsAreEqual(obj1, obj2){
-                if (obj1.keys.length !== obj2.keys.length){
+            function checkIfObjectsAreEqual(obj1, obj2) {
+                if (obj1.keys.length !== obj2.keys.length) {
                     return false;
                 }
                 for (const key in obj1) {
-                    if (obj1[key] !== obj2[key]){
+                    if (obj1[key] !== obj2[key]) {
                         return false;
                     }
                 }
@@ -86,7 +87,9 @@ function expect(something){
             }
 
             /*** @returns {boolean} */
-            function checkForSameType(obj1, obj2){return typeof obj1 === typeof obj2;}
+            function checkForSameType(obj1, obj2) {
+                return typeof obj1 === typeof obj2;
+            }
 
             /*** @returns {boolean} */
             function checkIfBothAreOfObjectType(something, somethingElse) {
