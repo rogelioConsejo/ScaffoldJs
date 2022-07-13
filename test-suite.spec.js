@@ -8,6 +8,8 @@ let testSuite = new TestSuite(
     new Test("compare different arrays", compareDifferentArrays),
     new Test("compare equal objects", compareEqualObjects),
     new Test("compare different objects", compareDifferentObjects),
+    new Test("compare equal maps of objects", compareEqualMapsOfObjects),
+    new Test("compare different maps of objects", compareDifferentMapsOfObjects),
 );
 testSuite.runTests();
 
@@ -44,4 +46,22 @@ function compareDifferentObjects() {
     let obj4 = {param1: true, param2: {someParam: 2}}
 
     return expect(obj1).notToBe(obj2) && expect(obj1).notToBe(obj3) && expect(obj1).notToBe(obj4)
+}
+
+function compareEqualMapsOfObjects() {
+    let map1 = new Map()
+    let map2 = new Map()
+    map1.set("some-key", {param1: true, param2: {someParam: 1}})
+    map2.set("some-key", {param1: true, param2: {someParam: 1}})
+
+    return expect(map1).toBe(map2)
+}
+
+function compareDifferentMapsOfObjects() {
+    let map1 = new Map()
+    let map2 = new Map()
+    map1.set("some-key", {param1: true, param2: {someParam: 1}})
+    map2.set("some-key", {param1: true, param2: {someParam: 2}})
+
+    return expect(map1).notToBe(map2)
 }

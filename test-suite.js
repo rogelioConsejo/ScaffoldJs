@@ -69,6 +69,11 @@ function expect(something) {
                     return false;
                 }
 
+                let areMaps = something instanceof Map && somethingElse instanceof Map
+                if (areMaps) {
+                    return checkIfMapsAreEqual(something, somethingElse)
+                }
+
                 let areObjects = checkIfBothAreOfObjectType(something, somethingElse);
                 if (areObjects) {
                     return checkIfObjectsAreEqual(something, somethingElse);
@@ -92,6 +97,27 @@ function expect(something) {
                     }
 
                     return true;
+                }
+
+                /**Used for maps
+                 * @param {Map} something
+                 * @param {Map} somethingElse
+                 * @returns {boolean} */
+                function checkIfMapsAreEqual(something, somethingElse) {
+                    let areEqual = true;
+                    something.forEach((element, index) => {
+                        let otherElement = somethingElse.get(index);
+                        if (!index in somethingElse){
+                            areEqual = false;
+                        }
+                        if(element !== otherElement){
+                            areEqual = false;
+                        }
+                        if (typeof element === 'object' && typeof otherElement  === 'object'){
+                            areEqual = checkIfSame(element, otherElement);
+                        }
+                    })
+                    return areEqual;
                 }
 
                 /*** @returns {boolean} */
