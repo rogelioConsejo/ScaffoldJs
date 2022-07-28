@@ -87,7 +87,7 @@ function expect(something) {
                         return false;
                     }
                     for (const key in obj1) {
-                        if (!key in obj2) {
+                        if (!(key in obj2)) {
                             return false;
                         }
                         if (!checkIfSame(obj1[key], obj2[key])) {
@@ -106,7 +106,7 @@ function expect(something) {
                     let areEqual = true;
                     first.forEach((element, index) => {
                         let otherElement = second.get(index);
-                        if (!index in second) {
+                        if (!(index in second)) {
                             areEqual = false;
                         }
                         if (element !== otherElement) {
