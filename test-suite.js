@@ -22,9 +22,8 @@ class TestSuite {
 
 /** A Test needs to have a name and a testFunction */
 class Test {
-    name = "";
-    func = function () {
-    };
+    name;
+    func;
 
     /**
      * @callback testFunction
@@ -52,24 +51,31 @@ function expect(something) {
         toBe: function (somethingElse) {
             return checkIfSame(something, somethingElse);
 
-            /**@param {any} something
-             *@param {any} somethingElse */
-            function checkIfSame(something, somethingElse) {
-                let haveSameTypes = checkForSameType(something, somethingElse);
+            /**@param {any} oneThing
+             *@param {any} anotherThing */
+            function checkIfSame(oneThing, anotherThing) {
+                let haveSameTypes = checkForSameType(oneThing, anotherThing);
                 if (!haveSameTypes) {
                     return false;
                 }
 
-                let areMaps = something instanceof Map && somethingElse instanceof Map
+                let areMaps = checkIfTwoThingsAreMaps(oneThing, anotherThing)
                 if (areMaps) {
-                    return checkIfMapsAreEqual(something, somethingElse)
+                    return checkIfTwoMapsAreEqual(oneThing, anotherThing)
                 }
 
-                let areObjects = checkIfBothAreOfObjectType(something, somethingElse);
+                let areObjects = checkIfBothVariablesAreOfObjectType(oneThing, anotherThing);
                 if (areObjects) {
-                    return checkIfObjectsAreEqual(something, somethingElse);
+                    return checkIfObjectsAreEqual(oneThing, anotherThing);
                 }
-                return something === somethingElse;
+                return oneThing === anotherThing;
+
+                /**
+                 * @returns {boolean}
+                 * */
+                function checkIfTwoThingsAreMaps(first, second) {
+                    return first instanceof Map && second instanceof Map;
+                }
 
                 /**@param {Object} obj1
                  *@param {Object} obj2
@@ -92,15 +98,15 @@ function expect(something) {
                     return true;
                 }
 
-                /**Used for maps
-                 * @param {Map} something
-                 * @param {Map} somethingElse
+                /** Used for comparing maps' contents
+                 * @param {Map} first
+                 * @param {Map} second
                  * @returns {boolean} */
-                function checkIfMapsAreEqual(something, somethingElse) {
+                function checkIfTwoMapsAreEqual(first, second) {
                     let areEqual = true;
-                    something.forEach((element, index) => {
-                        let otherElement = somethingElse.get(index);
-                        if (!index in somethingElse) {
+                    first.forEach((element, index) => {
+                        let otherElement = second.get(index);
+                        if (!index in second) {
                             areEqual = false;
                         }
                         if (element !== otherElement) {
@@ -119,8 +125,8 @@ function expect(something) {
                 }
 
                 /*** @returns {boolean} */
-                function checkIfBothAreOfObjectType(something, somethingElse) {
-                    return typeof something === 'object' && typeof somethingElse === 'object';
+                function checkIfBothVariablesAreOfObjectType(first, second) {
+                    return typeof first === 'object' && typeof second === 'object';
                 }
             }
         },
