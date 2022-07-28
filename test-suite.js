@@ -74,65 +74,69 @@ function expect(something) {
             return checkIfObjectsAreEqual(oneThing, anotherThing);
         }
         return oneThing === anotherThing;
+    }
 
-        /**
-         * @returns {boolean}
-         * */
-        function checkIfTwoThingsAreMaps(first, second) {
-            return first instanceof Map && second instanceof Map;
+    /**
+     * @returns {boolean}
+     * */
+    function checkIfTwoThingsAreMaps(first, second) {
+        function isMap(thing) {
+            return thing instanceof Map;
         }
 
-        /**@param {Object} obj1
-         *@param {Object} obj2
-         * @returns {boolean} */
-        function checkIfObjectsAreEqual(obj1, obj2) {
-            let obj1Keys = Object.keys(obj1);
-            let obj2Keys = Object.keys(obj2);
-            if (obj1Keys.length !== obj2Keys.length) {
+        return isMap(first) && isMap(second);
+    }
+
+    /**@param {Object} obj1
+     *@param {Object} obj2
+     * @returns {boolean} */
+    function checkIfObjectsAreEqual(obj1, obj2) {
+        let obj1Keys = Object.keys(obj1);
+        let obj2Keys = Object.keys(obj2);
+        if (obj1Keys.length !== obj2Keys.length) {
+            return false;
+        }
+        for (const key in obj1) {
+            if (!(key in obj2)) {
                 return false;
             }
-            for (const key in obj1) {
-                if (!(key in obj2)) {
-                    return false;
-                }
-                if (!checkIfSame(obj1[key], obj2[key])) {
-                    return false;
-                }
+            if (!checkIfSame(obj1[key], obj2[key])) {
+                return false;
             }
-
-            return true;
         }
 
-        /** Used for comparing maps' contents
-         * @param {Map} first
-         * @param {Map} second
-         * @returns {boolean} */
-        function checkIfTwoMapsAreEqual(first, second) {
-            let areEqual = true;
-            first.forEach((element, index) => {
-                let otherElement = second.get(index);
-                if (!(index in second)) {
-                    areEqual = false;
-                }
-                if (element !== otherElement) {
-                    areEqual = false;
-                }
-                if (typeof element === 'object' && typeof otherElement === 'object') {
-                    areEqual = checkIfSame(element, otherElement);
-                }
-            })
-            return areEqual;
-        }
+        return true;
+    }
 
-        /*** @returns {boolean} */
-        function checkForSameType(obj1, obj2) {
-            return typeof obj1 === typeof obj2;
-        }
+    /** Used for comparing maps' contents
+     * @param {Map} first
+     * @param {Map} second
+     * @returns {boolean} */
+    function checkIfTwoMapsAreEqual(first, second) {
+        let areEqual = true;
+        first.forEach((element, index) => {
+            let otherElement = second.get(index);
+            if (!(index in second)) {
+                areEqual = false;
+            }
+            if (element !== otherElement) {
+                areEqual = false;
+            }
+            if (typeof element === 'object' && typeof otherElement === 'object') {
+                areEqual = checkIfSame(element, otherElement);
+            }
+        })
+        return areEqual;
+    }
 
-        /*** @returns {boolean} */
-        function checkIfBothVariablesAreOfObjectType(first, second) {
-            return typeof first === 'object' && typeof second === 'object';
-        }
+    /*** @returns {boolean} */
+    function checkForSameType(obj1, obj2) {
+        return typeof obj1 === typeof obj2;
+    }
+
+    /*** @returns {boolean} */
+    function checkIfBothVariablesAreOfObjectType(first, second) {
+        return typeof first === 'object' && typeof second === 'object';
     }
 }
 
